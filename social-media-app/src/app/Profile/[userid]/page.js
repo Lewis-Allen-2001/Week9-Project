@@ -1,28 +1,43 @@
 import { connect } from "@/app/utils/connect";
 import { auth } from "@clerk/nextjs/server";
 
-export default async function UserProfilePage({ params }) {
+
+export default async function UserProfilePage() {
     const db = connect();
     const { userId } = auth();
-    const result = await db.query('SELECT username, bio FROM profiles WHERE id = $1', [params.id]); 
-    const postss = await db.query('SELECT * FROM postss WHERE content = $1', [params.id]);
-    const User = result.rows[0];
+    
+   const userInfo = await db.query(`
+     SELECT
+        postss.id,
+        profiles.username,
+        profiles.bio,
+        postss.content
+    FROM postss
+    INNER JOIN profiles ON postss.clerk_id = profiles.clerk_id
+    WHERE profiles.clerk_id = $1 ;`, [ userId ])
+   
+    const user = userInfo.rows[0];
+    const posts = userInfo.rows;
 
-    console.log(User, postss);
 
+    console.log(user)
+
+// add where to current query
+// make another varible for user and post 
+//assign userInfo.rows[0]
+//posts userInfo.rows
 
     return (
         <div>
-            <h1>USER INFO:</h1>
-            <h1>{User?.username}</h1>
-            <h1>{User?.bio}</h1>
-            <h2>USER POSTS:</h2>
-            {postss.rows.map((post) => (
-                <div key={post.id}>
-                    <p>{post.content}</p>
-                </div>
-            ))}
+            <h1>{user.username}&apos;s Profile</h1>
+            <h2>Bio: {user.bio}</h2>
+
+            <h1>{user.username}&apos;s Posts: </h1>
+              {posts.map(post => (
+                <div key = {post.id}>
+                    <h1>{post.content}</h1>
+                    </div>
+        ))} 
         </div>
     );
 }    
-
