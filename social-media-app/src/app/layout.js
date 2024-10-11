@@ -15,22 +15,21 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider >
+    <ClerkProvider className ="cl-rootBox" >
     <html lang="en">
       <body>
         <SignedOut>
           <SignInButton />
         </SignedOut>
         <SignedIn>
-          <UserButton/>
+          <UserButton  />
         </SignedIn>
-        
-      <header className="w-full text-center py-4 bg-green-700 text-white text-2xl font-bold">
-        FRIENDFACE
+      <header className="w-full text-center py-4 bg-green-700 text-white text-2xl font-bold " >
+        <a href="https://www.youtube.com/watch?v=j4o2PDwKdcA" >FRIENDFACE</a>
       </header>
         <NavBar/>
         {children}
-        <footer className="w-full text-center py-4 bg-green-700 text-white text-2xl font-bold">© Lewis Allen 2024</footer>
+        <footer className="w-full text-center py-5 bg-green-700 text-white text-2xl font-bold">© Lewis Allen 2024</footer>
       </body>
     </html>
   </ClerkProvider>

@@ -2,6 +2,7 @@ import { connect } from "@/app/utils/connect";
 import { auth } from "@clerk/nextjs/server";
 
 
+
 export default async function UserProfilePage() {
     const db = connect();
     const { userId } = auth();
@@ -22,22 +23,29 @@ export default async function UserProfilePage() {
 
     console.log(user)
 
-// add where to current query
+// add WHERE to current query
 // make another varible for user and post 
 //assign userInfo.rows[0]
 //posts userInfo.rows
 
     return (
-        <div>
-            <h1>{user.username}&apos;s Profile</h1>
-            <h2>Bio: {user.bio}</h2>
+        <div className="container mx-auto p-6">
+        <div className="bg-slate-100 shadow-lg rounded-lg p-6">
 
-            <h1>{user.username}&apos;s Posts: </h1>
-              {posts.map(post => (
-                <div key = {post.id}>
-                    <h1>{post.content}</h1>
-                    </div>
-        ))} 
+            <h1 className="text-3xl font-bold mb-4 text-center">{user.username}&apos;s Profile</h1>
+            <p className="text-gray-700 mb-4 text-center font-bold">Bio: {user.bio}</p>
         </div>
-    );
+
+        <div className="mt-6">
+            <h2 className="text-2xl font-semibold mb-4 text-center">{user.username}&apos;s Posts:</h2>
+            <div className="space-y-4 text-center">
+                {posts.map(post => (
+                    <div key={post.id} className="bg-gray-100 p-4 rounded-lg shadow-md">
+                        <p className="text-gray-800">{post.content}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </div>
+);
 }    

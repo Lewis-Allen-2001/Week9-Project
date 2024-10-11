@@ -26,44 +26,28 @@ export default function ProfilePage() {
         `UPDATE profiles SET username=$1, bio=$2 WHERE clerk_id=$3`,
         [username, bio, userId]
       );
-      redirect;{"/Profile"}
     }
+    redirect("/Posts")
   }
+
 
   return (
     <div className="container mx-auto p-6">
       <h2 className="text-2xl font-bold text-center mb-4">Profile Page</h2>
-      <h3 className="text-lg text-center mb-6">
-        Please update your profile so you can start posting!
-      </h3>
+      <h3 className="text-lg text-center mb-6">Please update your profile so you can start posting!</h3>
+      <h4 className="text-lg text-center mb-6">You can change these at any time!</h4>
 
       <div className="flex justify-center">
-        <form
-          action={handleUpdateProfile}
-          className="w-full max-w-md bg-white p-6 rounded-lg shadow-md"
-        >
+        <form action={handleUpdateProfile} className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
           <div className="mb-4">
-            <input
-              name="username"
-              placeholder="Username"
-              className="w-full p-2 border border-green-700 rounded-md focus:outline-none focus:border-green-700"
-            />
+            <input name="username" placeholder="Username" className="w-full p-2 border border-green-700 rounded-md focus:outline-none focus:border-green-700"/>
           </div>
 
           <div className="mb-4">
-            <textarea
-              name="bio"
-              placeholder="Bio"
-              className="w-full p-2 border border-green-700 rounded-md focus:outline-none focus:border-green-700 resize-none"
-            ></textarea>
+            <textarea name="bio" placeholder="Bio" className="w-full p-2 border border-green-700 rounded-md focus:outline-none focus:border-green-700 resize-none"/>                
           </div>
 
-          <button
-            type="submit"
-            className="w-full bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-600"
-          >
-            Submit
-          </button>
+          <button type="submit" className="w-full bg-green-700 text-white py-2 px-4 rounded-md hover:bg-green-600" >Submit</button>
         </form>
       </div>
     </div>

@@ -3,9 +3,9 @@ import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import PageNotFound from "@/app/Components/PageNotFound";
 import {redirect} from "next/navigation"
+import { revalidatePath } from "next/cache";
 
 export default async function PostssPage() {
-  // get the user ID from clerk
   const { userId } = auth();
 
   const db = connect();
@@ -23,12 +23,13 @@ export default async function PostssPage() {
     const db = connect();
 
     const content = formData.get("content");
+    revalidatePath('/Posts')
 
     await db.query(`INSERT INTO postss (clerk_id, content) VALUES ($1, $2)`, [
       userId,
-      content,
+      content
     ]);
-    redirect;{"/Posts"}
+    redirect("/")
   }
 
    if (!postss.username) {
@@ -45,7 +46,7 @@ export default async function PostssPage() {
           <textarea
             name="content"
             placeholder="New Post"
-            className="w-full p-2 border border-green-700 rounded-md focus:outline-none focus:border-indigo-500 resize-none"/>
+            className="w-full p-2 border border-green-700 rounded-md focus:outline-none focus:border-green-700 resize-none"/>
 
 
           <button
@@ -65,7 +66,7 @@ export default async function PostssPage() {
             <Link href={`/Profile/${userId}`} className="text-green-700 font-medium hover:underline">
                 {post.username} said:
             </Link>
-            <p className="mt-2 text-gray-700">{post.content}</p>
+            <p className="mt-2 text-gray-400">{post.content}</p>
           </div>
         );
       })}
