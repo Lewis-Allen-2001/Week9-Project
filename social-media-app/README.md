@@ -28,3 +28,5 @@ Database Schema Complexity: Designing a database schema that supports user relat
 
 Conclusion
 This assignment was a valuable learning experience that allowed me to develop essential skills in full-stack development. Despite the challenges I faced, I was able to achieve a functional social media application that meets many core requirements. Moving forward, I plan to revisit the features I could not implement, particularly focussing on real-time functionalities and improving my database management skills. Overall, I am proud of the progress I've made and look forward to further refining this project.
+
+P.S: Click on Friendface in the header for a easter egg :D
